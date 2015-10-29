@@ -83,7 +83,3 @@ end
 
 
 
-post '/' do
-  birth_path_num = get_birthpath_num(params[:birthdate])
-  redirect "/message/:birth_path_num}"
-end
