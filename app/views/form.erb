@@ -1,9 +1,8 @@
-<div class="row">
-<div class= "col-md-4">
-<form class="col-md-3" action="/" method="post">
-<div class="form-group">
-<label for="birthdate">Enter your birthdate</label>
-<input class="form control" name="birthdate" type="date" />
-</div>
-<input class="btn btn-default" type="submit" />
+<% if !@error.nil? %>
+  <p><%= @error %></p>
+<% end %>
+<form action="/" method="post">
+  <label for="birthdate">Enter your birthdate</label>
+  <input type="date" name="birthdate" />
+  <input type="submit" />
 </form>

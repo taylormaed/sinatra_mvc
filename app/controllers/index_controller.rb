@@ -54,15 +54,14 @@ get '/' do
 end
 
 post '/' do
-  birthdate = params[:birthdate]
-  if valid_birthdate(birthdate)
-    birth_path_num = get_birthpath_num(birthdate)
-    redirect "/message/#{birth_path_num}"
-  else
-    @error = "You should enter a valid birthdate in the form of mmddyyyy."
-    erb :form
-  end
-
+    birthdate = params[:birthdate].gsub("-", "")
+    if valid_birthdate(birthdate)
+        birth_path_num = get_birth_path_num(birthdate)
+        redirect "/message/#{birth_path_num}"
+        else
+        @error = "You should enter a valid birthdate in the form of mmddyyyy."
+        erb :form
+    end
 end
 
 
