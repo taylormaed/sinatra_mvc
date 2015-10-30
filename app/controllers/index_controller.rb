@@ -1,6 +1,8 @@
 require 'sinatra'
 
-def get_birthpath_num(birthdate)
+class Person < ActiveRecord::Base
+
+def self.get_birthpath_num(birthdate)
   number = birthdate[0].to_i + birthdate[1].to_i + birthdate[2].to_i +
   birthdate[3].to_i + birthdate[4].to_i + birthdate[5].to_i +
   birthdate[6].to_i + birthdate[7].to_i
@@ -14,7 +16,7 @@ def get_birthpath_num(birthdate)
           return number
           end
 
-def get_message(birth_path_num)
+def self.get_message(birth_path_num)
 case birth_path_num
   when 1
     message = "Your numerology number is one. One is the leader. The number one indicates the ability to stand alone, and is a strong vibration. Ruled by the Sun."
@@ -39,13 +41,25 @@ case birth_path_num
 
 end
 
+def self.valid_birthdate(input)
+  if (input.length == 8 && !input.match(/^[0-9]+[0-9]$/).nil?)
+    true
+  else false
+end
+  end
+
+end
+
+
+
+
 get '/:birthdate' do
   setup_index_view
 end
 
 get '/message/:birth_path_num' do
   birth_path_num = params[:birth_path_num].to_i
-  @message = get_message(birth_path_num)
+  @message = Person.get_message(birth_path_num)
   erb :index
 end
 
@@ -55,8 +69,8 @@ end
 
 post '/' do
     birthdate = params[:birthdate].gsub("-", "")
-    if valid_birthdate(birthdate)
-        birth_path_num = get_birth_path_num(birthdate)
+    if Person.valid_birthdate(birthdate)
+        birth_path_num = Person.get_birthpath_num(birthdate)
         redirect "/message/#{birth_path_num}"
         else
         @error = "You should enter a valid birthdate in the form of mmddyyyy."
@@ -64,21 +78,10 @@ post '/' do
     end
 end
 
-
 def setup_index_view
   birthdate = params[:birthdate].gsub("-","")
-  birth_path_num = get_birthpath_num(birthdate)
-  @message = get_message(birth_path_num)
+  birth_path_num = Person.get_birthpath_num(birthdate)
+  @message = Person.get_message(birth_path_num)
   "#{@message}"
   erb :index
 end
-
-def valid_birthdate(input)
-  if (input.length == 8 && !input.match(/^[0-9]+[0-9]$/).nil?)
-    true
-  else false
-end
-  end
-
-
-
