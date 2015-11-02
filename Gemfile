@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'faker', '~> 1.5'
+
 gem 'activerecord'
 gem 'pg'
 
