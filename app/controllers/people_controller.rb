@@ -12,7 +12,7 @@ post '/people' do
     if params[:birthdate].include?("-")
         birthdate = params[:birthdate]
         else
-        birthdate = Date.strftime(params[:birthdate], "%m%d%Y")
+        birthdate = Date.strptime(params[:birthdate], "%m%d%Y")
     end
     
     person = Person.create(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
