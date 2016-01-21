@@ -11,3 +11,6 @@ body
 		font-size: 60px;
 		color: black;
 			}
+
+	.errors {text-transform: capitalize;
+				color: red;}

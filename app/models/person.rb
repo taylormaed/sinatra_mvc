@@ -1,12 +1,15 @@
 class Person < ActiveRecord::Base
-    def self.get_birthpath_num(birthdate)
+
+validates_presence_of :birthdate, :first_name, :last_name
+
+  def self.get_birthpath_num(birthdate)
     number = birthdate[0].to_i + birthdate[1].to_i + birthdate[2].to_i +
     birthdate[3].to_i + birthdate[4].to_i + birthdate[5].to_i +
     birthdate[6].to_i + birthdate[7].to_i
-    
+
     number = number.to_s
     number = number[0].to_i + number[1].to_i
-    
+
     if number > 9
     number = number.to_s
     number = number[0].to_i + number[1].to_i
@@ -35,7 +38,7 @@ case birth_path_num
     message = "Your numerology number is eight. This is the manager. Number Eight is a strong, successful, and material vibration. Ruled by Saturn."
     when 9
     message = "Your numerology number is nine. This is the teacher. Number Nine is a tolerant, somewhat impractical, and sympathetic vibration. Ruled by Mars."
-    
+
 end
 
 end
@@ -48,5 +51,3 @@ end
 end
 
 end
-
-
