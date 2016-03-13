@@ -1,6 +1,5 @@
 class Person < ActiveRecord::Base
-
-validates_presence_of :birthdate, :first_name, :last_name
+    validates_presence_of :birthdate, :first_name, :last_name
 
   def self.get_birthpath_num(birthdate)
     number = birthdate[0].to_i + birthdate[1].to_i + birthdate[2].to_i +
@@ -17,6 +16,7 @@ end
 
 return number
 end
+
 
 def self.get_message(birth_path_num)
 case birth_path_num
