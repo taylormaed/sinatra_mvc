@@ -9,7 +9,10 @@ get '/people/new' do
 end
 
 post '/people' do
-    if params[:birthdate].include?("-")
+    if params [:birthdate].nil?
+      @error = "The data you entered isn't valid"
+      erb :"/people/new"
+      elsif params[:birthdate].include?("-")
         birthdate = params[:birthdate]
         else
         birthdate = Date.strptime(params[:birthdate], "%m%d%Y")
