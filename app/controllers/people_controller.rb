@@ -9,7 +9,7 @@ get '/people/new' do
 end
 
 post '/people' do
-    if params [:birthdate].nil?
+    if params[:birthdate].blank?
       @error = "The data you entered isn't valid"
       erb :"/people/new"
       elsif params[:birthdate].include?("-")

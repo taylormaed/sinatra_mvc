@@ -1,4 +1,4 @@
-module ApplicationHelper
+ module ApplicationHelper
     def people_form_action(person)
         if person.new_record?
             @action = "/people"
