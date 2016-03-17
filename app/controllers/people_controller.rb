@@ -2,32 +2,32 @@ get '/people' do
     @people = Person.all
     erb :"/people/index"
 end
-
+ 
 get '/people/new' do
     @person = Person.new
     erb :"/people/new"
 end
 
 post '/people' do
-    if params[:birthdate].blank?
+   if params[:birthdate].nil?
       @error = "The data you entered isn't valid"
-      erb :"/people/new"
       elsif params[:birthdate].include?("-")
         birthdate = params[:birthdate]
         else
         birthdate = Date.strptime(params[:birthdate], "%m%d%Y")
     end
 
-    @person = Person.new(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
+@person = Person.new(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
       if @person.valid?
         @person.save
         redirect "/people/#{@person.id}"
       else
-        @error = "The data you entered isn't valid"
-        erb :"/people/new"
+        @errors = @person.errors.full_messages.each do |msg|
+          @errors = "#{@errors} #{msg}."
+        end
+      erb :"/people/new"
       end
-  end
-
+end
 get '/people/:id/edit' do
     @person = Person.find(params[:id])
     erb :'/people/edit'
