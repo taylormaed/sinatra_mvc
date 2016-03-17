@@ -1,4 +1,4 @@
-get '/people' do
+ get '/people' do
     @people = Person.all
     erb :"/people/index"
 end
@@ -28,6 +28,7 @@ post '/people' do
       erb :"/people/new"
       end
 end
+
 get '/people/:id/edit' do
     @person = Person.find(params[:id])
     erb :'/people/edit'
