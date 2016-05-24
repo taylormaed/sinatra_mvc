@@ -10,12 +10,14 @@ end
 
 post '/people' do
   if params[:birthdate].nil?
-      @error = "The data you entered isn't valid"
+      birthdate = nil
   elsif params[:birthdate].include?("-")
         birthdate = params[:birthdate]
   else
         birthdate = Date.strptime(params[:birthdate], "%m%d%Y")
   end
+
+  
 
 
 @person = Person.new(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
@@ -23,9 +25,10 @@ post '/people' do
           @person.save
           redirect "/people/#{@person.id}"
       else
-          @errors = @person.errors.full_messages.each do |msg|
-          @errors = "#{@errors} #{msg}."
+          @errors = @person.errors.full_messages.each do |message|
+          @errors = "#{@errors} #{message}."
       end
+      
       erb :"/people/new"
       end
 end
