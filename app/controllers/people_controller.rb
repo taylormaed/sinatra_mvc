@@ -9,12 +9,10 @@ get '/people/new' do
 end
 
 post '/people' do
-  if params[:birthdate].nil?
-      birthdate = nil
-  elsif params[:birthdate].include?("-")
+  if params[:birthdate].include?("-")
         birthdate = params[:birthdate]
-  else
-        birthdate = Date.strptime(params[:birthdate], "%m%d%Y")
+      elsif birthdate = Date.strptime(params[:birthdate], "%m%d%Y")
+      else birthdate ==""
   end
 
   
