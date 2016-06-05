@@ -9,7 +9,7 @@ get '/people/new' do
 end
 
 post '/people' do
-  if params[:birthdate].nil?
+  if params[:birthdate].empty?
         birthdate = nil
   elsif params[:birthdate].include?("-")
         birthdate = params[:birthdate]
@@ -19,14 +19,16 @@ post '/people' do
   
 
 
-person = Person.create(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
+@person = Person.create(first_name: params[:first_name], last_name: params[:last_name], birthdate: birthdate)
 if @person.valid?
     @person.save
     redirect "/people/#{@person.id}"
     else
-    @person.errors.full_messages.each do |msg|
-        @errors = "#{@errors} #{msg}."
+    @errors = ''
+    @person.errors.full_messages.each do |message|
+      @errors = "#{@errors} #{message}"
     end
+    
     erb :"/people/new"
 end
 end
